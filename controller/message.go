@@ -40,6 +40,7 @@ func MessageAction(c *gin.Context) {
 		} else {
 			tempChat[chatKey] = []Message{curMessage}
 		}
+
 		c.JSON(http.StatusOK, Response{StatusCode: 0})
 	} else {
 		c.JSON(http.StatusOK, Response{StatusCode: 1, StatusMsg: "User doesn't exist"})
