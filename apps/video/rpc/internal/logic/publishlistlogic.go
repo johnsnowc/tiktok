@@ -24,7 +24,10 @@ func NewPublishListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Publi
 }
 
 func (l *PublishListLogic) PublishList(in *video.DouyinPublishListRequest) (*video.DouyinPublishListResponse, error) {
-	// todo: add your logic here and delete this line
+	//videos, err := l.svcCtx.VideoModel.FindAllByUid(l.ctx, in.UserId)
+	//if err != nil {
+	//	return &video.DouyinPublishListResponse{}, err
+	//}
 
 	return &video.DouyinPublishListResponse{}, nil
 }

@@ -18,3 +18,13 @@ UserRpc:
     Hosts:
       - etcd:2379
     Key: user.rpc
+
+Minio:
+  - Endpoint: localhost:9000
+    AccessKey: admin
+    SecretKey: 12345678
+    UseSSL: false
+    VideoBucket: video
+    CoverBucket: cover
+    Location: us-east-1
+    ContentType: video/mp4

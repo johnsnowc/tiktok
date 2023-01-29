@@ -15,4 +15,15 @@ type Config struct {
 	CacheRedis cache.CacheConf
 
 	UserRpc zrpc.RpcClientConf
+
+	Minio struct {
+		Endpoint    string
+		AccessKey   string
+		SecretKey   string
+		UseSSL      bool
+		VideoBucket string
+		CoverBucket string
+		Location    string
+		ContentType string
+	}
 }
