@@ -8,8 +8,6 @@ message douyin_user_register_request {
 }
 
 message douyin_user_register_response {
-  int32 status_code = 1; // 状态码，0-成功，其他值-失败
-  optional string status_msg = 2; // 返回状态描述
   int64 user_id = 3; // 用户id
   int64 from_id = 4; // 源id
 }
@@ -20,8 +18,6 @@ message douyin_user_request {
 }
 
 message douyin_user_response {
-  int32 status_code = 1; // 状态码，0-成功，其他值-失败
-  optional string status_msg = 2; // 返回状态描述
   User user = 3; // 用户信息
 }
 
