@@ -1,0 +1,15 @@
+Name: Tiktok
+Host: 0.0.0.0
+Port: 8000
+
+UserRpc:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: user.rpc
+
+#VideoRpc:
+#  Etcd:
+#    Hosts:
+#      - etcd:2379
+#    Key: video.rpc

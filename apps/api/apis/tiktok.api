@@ -1,0 +1,46 @@
+syntax = "v1"
+
+import (
+	"./user.api"
+	"./video.api"
+)
+
+//========================> user v1 <===================================
+service Tiktok {
+	@handler Login
+	post /douyin/user/login(LoginRequest) returns (LoginResponse)
+	
+	@handler Register
+	post /douyin/user/register(RegisterRequest) returns (RegisterResponse)
+}
+
+@server (
+	middleware: AuthJWT
+)
+
+service Tiktok {
+	@handler UserInfo
+	get /douyin/user(UserInfoRequest) returns (UserInfoResponse)
+}
+
+//========================> user v1 <===================================
+@server (
+	middleware: AuthJWT
+)
+
+service Tiktok {
+	@handler PublishAction
+	post /douyin/publish/action(PublishActionRequest) returns (PublishActionResponse)
+	
+	@handler PublishList
+	get /douyin/publish/list(PublishListRequest) returns (PublishListResponse)
+}
+
+@server (
+	middleware: IsLogin
+)
+
+service Tiktok {
+	@handler Feed
+	get /douyin/feed(FeedRequest) returns (FeedResponse)
+}

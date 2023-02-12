@@ -1,0 +1,57 @@
+syntax = "v1"
+
+import (
+    "./user.api"
+)
+
+info(
+    title: "视频管理"
+    desc: "视频管理"
+    author: "johnsnowc"
+    email: "1270772142@qq.com"
+    version: "v1"
+)
+
+type (
+    Video {
+        Id            int64  `json:"id"`
+        Author        User   `json:"author"`
+        PlayUrl       string `json:"play_url"`
+        CoverUrl      string `json:"cover_url"`
+        FavoriteCount int64  `json:"favorite_count"`
+        CommentCount  int64  `json:"comment_count"`
+        IsFavorite    bool   `json:"is_favorite"`
+        Title         string `json:"title"`
+    }
+
+    FeedRequest {
+        LatestTime string `form:"latest_time,optional"`
+        Token      string `form:"token,optional"`
+    }
+
+    FeedResponse {
+        Status
+        NextTime   int64   `json:"next_time"`
+        VideoList  []Video `json:"video_list"`
+    }
+
+    PublishActionRequest {
+        Data []byte  `form:"data"`
+        Token string `form:"token"`
+        Title string `form:"title"`
+    }
+
+    PublishActionResponse {
+        Status
+    }
+
+    PublishListRequest {
+        Token  string `form:"token"`
+        UserId string `form:"user_id"`
+    }
+
+    PublishListResponse {
+        Status
+        VideoList  []Video `json:"video_list"`
+    }
+)

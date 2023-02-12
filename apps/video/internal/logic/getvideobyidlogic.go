@@ -36,7 +36,7 @@ func (l *GetVideoByIdLogic) GetVideoById(in *video.VideoIdRequest) (*video.Video
 		UserId: v.Uid,
 	})
 	if err != nil {
-		return nil, err
+		return &video.Video{}, err
 	}
 
 	var res video.Video

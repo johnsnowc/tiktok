@@ -8,6 +8,7 @@ import (
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/zrpc"
 	"gorm.io/gorm"
 )
@@ -16,6 +17,7 @@ type ServiceContext struct {
 	Config config.Config
 
 	VideoModel *gorm.DB
+	RedisCache *redis.Redis
 
 	UserRpc     user.UserSrv
 	FavoriteRpc favorite.FavoriteSrv
@@ -35,6 +37,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:      c,
 		VideoModel:  dal.NewGorm(c.Mysql.DataSource),
+		RedisCache:  c.RedisCacheConf.NewRedis(),
 		UserRpc:     user.NewUserSrv(zrpc.MustNewClient(c.UserRpc)),
 		FavoriteRpc: favorite.NewFavoriteSrv(zrpc.MustNewClient(c.FavoriteRpc)),
 		MinioClient: minioClient,

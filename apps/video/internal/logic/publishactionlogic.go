@@ -39,7 +39,7 @@ func NewPublishActionLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Pub
 func (l *PublishActionLogic) PublishAction(in *video.DouyinPublishActionRequest) (*video.DouyinPublishActionResponse, error) {
 	u, err := uuid.NewV4()
 	if err != nil {
-		return nil, err
+		return &video.DouyinPublishActionResponse{}, err
 	}
 	videoPath := strconv.Itoa(int(in.FromId)) + "/" + u.String() + "." + "mp4"
 
@@ -48,7 +48,7 @@ func (l *PublishActionLogic) PublishAction(in *video.DouyinPublishActionRequest)
 		ContentType: "application/octet-stream"})
 	if err != nil {
 		l.Logger.Errorf("upload %s of size %d failed, %s", l.svcCtx.Config.Minio.VideoBucket, int64(len(in.Data)), err)
-		return nil, err
+		return &video.DouyinPublishActionResponse{}, err
 	}
 
 	//获得链接
@@ -60,14 +60,14 @@ func (l *PublishActionLogic) PublishAction(in *video.DouyinPublishActionRequest)
 	}
 	playUrl := strings.Split(videoUrl.String(), "?")[0]
 	if err != nil {
-		return nil, err
+		return &video.DouyinPublishActionResponse{}, err
 	}
 
 	// 获取封面
 	coverPath := strconv.Itoa(int(in.FromId)) + "/" + u.String() + "." + "jpg"
 	coverData, err := readFrameAsJpeg(playUrl)
 	if err != nil {
-		return nil, err
+		return &video.DouyinPublishActionResponse{}, err
 	}
 
 	//上传封面
@@ -75,7 +75,7 @@ func (l *PublishActionLogic) PublishAction(in *video.DouyinPublishActionRequest)
 		ContentType: "application/octet-stream"})
 	if err != nil {
 		l.Logger.Errorf("upload %s of size %d failed, %s", l.svcCtx.Config.Minio.CoverBucket, int64(len(coverData)), err)
-		return nil, err
+		return &video.DouyinPublishActionResponse{}, err
 	}
 
 	//获得链接
@@ -86,7 +86,7 @@ func (l *PublishActionLogic) PublishAction(in *video.DouyinPublishActionRequest)
 	}
 	CoverUrl := strings.Split(coverUrl.String(), "?")[0]
 	if err != nil {
-		return nil, err
+		return &video.DouyinPublishActionResponse{}, err
 	}
 
 	newVideo := dal.Video{
@@ -96,7 +96,7 @@ func (l *PublishActionLogic) PublishAction(in *video.DouyinPublishActionRequest)
 		Title:    in.Title,
 	}
 	if err = l.svcCtx.VideoModel.WithContext(l.ctx).Create(&newVideo).Error; err != nil {
-		return nil, err
+		return &video.DouyinPublishActionResponse{}, err
 	}
 
 	return &video.DouyinPublishActionResponse{}, nil

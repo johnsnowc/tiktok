@@ -13,8 +13,8 @@ message douyin_feed_request {
 // 所有这些视频中，最早发布的是 6:00的视频，那么6:00作为下一次请求时的latest_time
 // 那么下次请求返回的视频时间戳就会小于6:00
 message douyin_feed_response {
-  repeated Video video_list = 3; // 视频列表
-  optional int64 next_time = 4; // 本次返回的视频中，发布最早的时间，作为下次请求时的latest_time
+  repeated Video video_list = 1; // 视频列表
+  optional int64 next_time = 2; // 本次返回的视频中，发布最早的时间，作为下次请求时的latest_time
 }
 
 message video_id_request{
@@ -48,7 +48,7 @@ message douyin_publish_list_request {
 }
 
 message douyin_publish_list_response {
-  repeated Video video_list = 3; // 用户发布的视频列表
+  repeated Video video_list = 1; // 用户发布的视频列表
 }
 
 service VideoSrv{

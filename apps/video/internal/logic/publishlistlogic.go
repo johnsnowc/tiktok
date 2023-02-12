@@ -29,7 +29,7 @@ func NewPublishListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Publi
 func (l *PublishListLogic) PublishList(in *video.DouyinPublishListRequest) (*video.DouyinPublishListResponse, error) {
 	list := make([]*dal.Video, 0)
 	if err := l.svcCtx.VideoModel.WithContext(l.ctx).Where("uid = ?", in.UserId).Find(&list).Error; err != nil {
-		return nil, err
+		return &video.DouyinPublishListResponse{}, err
 	}
 
 	returnList := make([]*video.Video, 0, len(list))

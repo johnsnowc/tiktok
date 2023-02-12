@@ -38,7 +38,7 @@ func (l *GetUserFeedLogic) GetUserFeed(in *video.DouyinFeedRequest) (*video.Douy
 	list := make([]*dal.Video, 0)
 	if err := l.svcCtx.VideoModel.WithContext(l.ctx).Limit(30).Order("create_time desc").
 		Where("create_time < ?", timeline).Find(&list).Error; err != nil {
-		return nil, err
+		return &video.DouyinFeedResponse{}, err
 	}
 
 	returnList := make([]*video.Video, 0, len(list))
